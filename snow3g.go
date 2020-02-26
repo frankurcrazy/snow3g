@@ -30,8 +30,9 @@ type FSM struct {
 }
 
 type Snow3G struct {
-	LFSR LFSR
-	FSM  FSM
+	LFSR     LFSR
+	FSM      FSM
+	is_first bool
 }
 
 func (s *Snow3G) clockLFSRInitializationMode(f uint32) {
@@ -122,12 +123,11 @@ func (s *Snow3G) Initialize(k [4]uint32, iv [4]uint32) {
 		f = s.clockFSM()
 		s.clockLFSRInitializationMode(f)
 	}
+
+	s.is_first = true
 }
 
 func (s *Snow3G) GenerateKeystream(n int) []uint32 {
-	s.clockFSM()
-	s.clockLFSRKeyStreamMode()
-
 	ks := make([]uint32, n)
 	for t := 0; t < n; t += 1 {
 		ks[t] = s.NextKey()
@@ -137,6 +137,12 @@ func (s *Snow3G) GenerateKeystream(n int) []uint32 {
 }
 
 func (s *Snow3G) NextKey() uint32 {
+	if s.is_first {
+		s.clockFSM()
+		s.clockLFSRKeyStreamMode()
+		s.is_first = false
+	}
+
 	f := s.clockFSM()
 	k := f ^ s.LFSR.S0
 	s.clockLFSRKeyStreamMode()
