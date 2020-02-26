@@ -125,18 +125,21 @@ func (s *Snow3G) Initialize(k [4]uint32, iv [4]uint32) {
 }
 
 func (s *Snow3G) GenerateKeystream(n int) []uint32 {
-	var f uint32
-
 	s.clockFSM()
 	s.clockLFSRKeyStreamMode()
 
 	ks := make([]uint32, n)
 	for t := 0; t < n; t += 1 {
-		f = s.clockFSM()
-		ks[t] = f ^ s.LFSR.S0
-
-		s.clockLFSRKeyStreamMode()
+		ks[t] = s.NextKey()
 	}
 
 	return ks
+}
+
+func (s *Snow3G) NextKey() uint32 {
+	f := s.clockFSM()
+	k := f ^ s.LFSR.S0
+	s.clockLFSRKeyStreamMode()
+
+	return k
 }
