@@ -1,8 +1,18 @@
 // Code adapted from ETSI / SAGE specification of the 3GPP Confidentiality and Integrity Algorithms UEA2 & UIA2.
 // Document 2: SNOW 3G Specification. Version 1.1 from the 6th September 2006, annex 4.
 // https://www.gsma.com/security/wp-content/uploads/2019/05/snow3gspec.pdf
+// code adapted from ETSI / SAGE specification of the 3GPP Confidentiality and Integrity Algorithms UEA2 & UIA2.
+// Document 1: UEA2 and UIA2 Specification. Version 2.1 from the 16th March 2009, annex 4.
+// https://www.gsma.com/security/wp-content/uploads/2019/05/uea2uia2d1v21.pdf
 
 package snow3g
+
+type Direction uint32
+
+const (
+	KEY_UPLINK   = Direction(0x0)
+	KEY_DOWNLINK = Direction(0x1)
+)
 
 func mulx(v, c uint8) uint8 {
 	if v&uint8(0x80) > 0 {
