@@ -50,19 +50,18 @@ func (u *UEA2) Decrypt(data []byte, blength uint32) []byte {
 func (u *UEA2) F8(data []byte, blength uint32) []byte {
 	zeroBits := blength & 0x7
 	length := blength >> 3
-
 	if zeroBits > 0 {
 		length += 1
 	}
+	n := int((blength + 31) >> 5)
 
-	ks := u.snow3g.GenerateKeystream(int(length))
+	ks := u.snow3g.GenerateKeystream(int(n))
 	output := make([]byte, length)
 
-	for i := uint32(0); i < (length / 4); i += 1 {
-		output[4*i+0] = data[4*i+0] ^ uint8((ks[i]>>24)&0xff)
-		output[4*i+1] = data[4*i+1] ^ uint8((ks[i]>>16)&0xff)
-		output[4*i+2] = data[4*i+2] ^ uint8((ks[i]>>8)&0xff)
-		output[4*i+3] = data[4*i+3] ^ uint8((ks[i])&0xff)
+	for i := 0; i < n; i += 1 {
+		for j := 0; j < 4 && i*4+j < int(length); j += 1 {
+			output[4*i+j] = data[4*i+j] ^ uint8((ks[i]>>(8*(3-j)))&0xff)
+		}
 	}
 
 	/* Discard unaligned trailing bits */
