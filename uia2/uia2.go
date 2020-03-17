@@ -45,18 +45,18 @@ func NewUIA2(ik []byte, count uint32, fresh uint32, direction snow3g.Direction) 
 
 func (u *UIA2) F9(data []byte, blength uint64) []byte {
 	zeroBits := blength & 63
-	var d uint64
+	var d int64
 
 	if zeroBits == 0 {
-		d = (blength >> 6) + 1
+		d = int64(blength >> 6) + 1
 	} else {
-		d = (blength >> 6) + 2
+		d = int64(blength >> 6) + 2
 	}
 
 	eval := uint64(0x00)
 	c := uint64(0x1b)
 
-	for i := uint64(0); i <= d-3; i += 1 {
+	for i := int64(0); i <= d-3; i += 1 {
 		v := eval ^ ((uint64(data[8*i]) << 56) | (uint64(data[8*i+1]) << 48) |
 			(uint64(data[8*i+2]) << 40) | (uint64(data[8*i+3]) << 32) |
 			(uint64(data[8*i+4]) << 24) | (uint64(data[8*i+5]) << 16) |
@@ -69,7 +69,7 @@ func (u *UIA2) F9(data []byte, blength uint64) []byte {
 	}
 
 	md2 := uint64(0)
-	i := uint64(0)
+	i := int64(0)
 	for ; zeroBits > 7; i, zeroBits = i+1, zeroBits-8 {
 		md2 |= (uint64(data[8*(d-2)+i]) << (8 * (7 - i)))
 	}
