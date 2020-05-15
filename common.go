@@ -20,11 +20,11 @@ func mulx(v, c uint8) uint8 {
 }
 
 func mulxpow(v uint8, i uint8, c uint8) uint8 {
-	if i == 0 {
-		return v
+	for i > 0 {
+		v = mulx(v, c)
+		i = i - 1
 	}
-
-	return mulx(mulxpow(v, i-1, c), c)
+	return v
 }
 
 func mulalpha(c uint8) uint32 {

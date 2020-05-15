@@ -13,11 +13,11 @@ func mul64x(v, c uint64) uint64 {
 }
 
 func mul64xpow(v uint64, i uint8, c uint64) uint64 {
-	if i == 0 {
-		return v
+	for i > 0 {
+		v = mul64x(v, c)
+		i = i - 1
 	}
-
-	return mul64x(mul64xpow(v, i-1, c), c)
+	return v
 }
 
 func mul64(v, p, c uint64) uint64 {
