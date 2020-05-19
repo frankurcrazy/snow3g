@@ -3,10 +3,11 @@ package uia2
 import (
 	"encoding/binary"
 	"encoding/hex"
-	"github.com/frankurcrazy/snow3g"
-	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
+
+	"github.com/gordon2020t/snow3g"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestUIA2(t *testing.T) {

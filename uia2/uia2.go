@@ -5,7 +5,7 @@
 package uia2
 
 import (
-	"github.com/frankurcrazy/snow3g"
+	"github.com/gordon2020t/snow3g"
 )
 
 type UIA2 struct {
@@ -48,9 +48,9 @@ func (u *UIA2) F9(data []byte, blength uint64) []byte {
 	var d int64
 
 	if zeroBits == 0 {
-		d = int64(blength >> 6) + 1
+		d = int64(blength>>6) + 1
 	} else {
-		d = int64(blength >> 6) + 2
+		d = int64(blength>>6) + 2
 	}
 
 	eval := uint64(0x00)
