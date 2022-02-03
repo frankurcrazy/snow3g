@@ -5,6 +5,7 @@
 package uia2
 
 import (
+	"bytes"
 	"github.com/pedroalbanese/snow3g"
 )
 
