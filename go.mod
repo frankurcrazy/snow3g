@@ -1,4 +1,4 @@
-module github.com/frankurcrazy/snow3g
+module github.com/pedroalbanese/snow3g
 
 go 1.13
 
