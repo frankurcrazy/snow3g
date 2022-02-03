@@ -95,3 +95,9 @@ func (u *UIA2) F9(data []byte, blength uint64) []byte {
 func (u *UIA2) Hash(data []byte, blength uint64) []byte {
 	return u.F9(data, blength)
 }
+
+func (e *UIA2) Verify(m []byte, blen uint64, mac []byte) bool {
+	chksum := e.Hash(m, blen)
+
+	return bytes.Compare(chksum, mac) == 0
+}
