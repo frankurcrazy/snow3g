@@ -5,7 +5,7 @@
 package uea2
 
 import (
-	"github.com/frankurcrazy/snow3g"
+	"github.com/pedroalbanese/snow3g"
 )
 
 type UEA2 struct {
