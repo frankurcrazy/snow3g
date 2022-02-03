@@ -5,7 +5,7 @@
 package uia2
 
 import (
-	"github.com/frankurcrazy/snow3g"
+	"github.com/pedroalbanese/snow3g"
 )
 
 type UIA2 struct {
