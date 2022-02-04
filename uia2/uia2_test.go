@@ -3,7 +3,7 @@ package uia2
 import (
 	"encoding/binary"
 	"encoding/hex"
-	"github.com/frankurcrazy/snow3g"
+	"github.com/pedroalbanese/snow3g"
 	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
